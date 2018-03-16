@@ -1,0 +1,28 @@
+# common settings for all databases
+# better either to encode the password or put it as environment variable
+common: &common
+  adapter: mysql2
+  encoding: utf8
+  reconnect: true
+  wait_timeout: 300
+  local_infile: true
+  username: root 
+  password: root
+  database: authorization
+
+# common settings for any development databases
+development:
+  <<: *common
+  host: localhost
+
+test: &test
+  <<: *common
+  host: localhost
+
+staging:
+  <<: *common
+  host: localhost
+
+production:
+  <<: *common
+  host: localhost
