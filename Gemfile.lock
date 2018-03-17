@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    bacon (1.2.0)
     mustermann (1.0.2)
     mysql2 (0.4.10)
     rack (2.0.4)
@@ -12,6 +13,10 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.1)
       tilt (~> 2.0)
+    sinatra-sequel (0.9.0)
+      bacon
+      sequel (>= 3.2.0)
+      sinatra (>= 0.9.4)
     tilt (2.0.8)
 
 PLATFORMS
@@ -21,6 +26,7 @@ DEPENDENCIES
   mysql2
   sequel
   sinatra
+  sinatra-sequel
 
 BUNDLED WITH
    1.15.4

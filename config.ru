@@ -1,10 +1,7 @@
 require 'rubygems'
 require 'bundler'
+require './config/app.rb'
 
 Bundler.require
 
-Dir[File.join(File.dirname(__FILE__), '..',  'app', '**/*.rb')].sort.each do |file|
-  require file
-end
-
-run authorization
+run Test
