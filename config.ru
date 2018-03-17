@@ -4,4 +4,4 @@ require './config/app.rb'
 
 Bundler.require
 
-run Test
+run AuthorizationController
