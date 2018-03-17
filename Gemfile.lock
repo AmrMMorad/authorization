@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     bacon (1.2.0)
+    bcrypt (3.1.11)
     mustermann (1.0.2)
     mysql2 (0.4.10)
     rack (2.0.4)
@@ -23,6 +24,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt
   mysql2
   sequel
   sinatra
