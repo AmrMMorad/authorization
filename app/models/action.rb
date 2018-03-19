@@ -1,4 +1,3 @@
 class Action < Sequel::Model
-	one_to_one :role
-	one_to_one :resource
+	one_to_many :roles
 end

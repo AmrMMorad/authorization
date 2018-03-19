@@ -18,6 +18,18 @@ class AuthorizationController < Sinatra::Base
 		end
 	end
 
+	post '/authorize' do
+		user = User.find(email: params[:email])
+		puts user.can_access?(params[:role], params[:action], params[:resource])
+		# if(user.can_access?)
+		# 	puts "lllllllllllllllllll"
+		# if(user.has_role?(Role.find(name: params[:role])))
+			# print "dsdsssssssssssssssssssssssss"
+		# else
+		# 	halt 401
+		# end
+	end
+
 	def token email
 		JWT.encode payload(email), 'HS256'
 	end

@@ -1,3 +1,3 @@
 class Resource < Sequel::Model
-	one_to_one :action
+	one_to_many :roles
 end

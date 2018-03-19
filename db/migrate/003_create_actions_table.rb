@@ -8,6 +8,6 @@ Sequel.migration do
   end
 
   down do
-    drop_table(:roles)
+    drop_table(:actions)
   end
 end
