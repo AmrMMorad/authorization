@@ -2,6 +2,7 @@ class User < Sequel::Model
 	many_to_many :roles
 
 	def get_role(role_name)
+		puts self.roles
 		self.roles.find(name: role_name).first
 	end
 

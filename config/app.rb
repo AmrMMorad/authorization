@@ -1,9 +1,12 @@
 require 'sinatra/base'
 require 'sinatra/sequel'
 require 'yaml'
+require 'sequel/extensions/seed'
+require './lib/sinatra/authorization_helper'
 
 class App < Sinatra::Base
 	register Sinatra::SequelExtension
+	helpers Sinatra::AuthorizationHelper
 
 	configure do
 		# set :database, database.yml
@@ -15,5 +18,8 @@ class App < Sinatra::Base
 		require file
 	end
 
-  
+  	Sequel::Seed.setup(:development)
+	Sequel.extension :seed
+	Sequel::Seeder.apply(DB, "db/seeds")
+
 end
