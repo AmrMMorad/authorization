@@ -2,8 +2,7 @@ class User < Sequel::Model
 	many_to_many :roles
 
 	def get_role(role_name)
-		puts self.roles
-		self.roles.find(name: role_name).first
+		self.roles.find {|role| role.name == role_name }
 	end
 
 	def has_action_to_resource?(role, action_name, resource_name)
@@ -12,6 +11,8 @@ class User < Sequel::Model
 
 	def can_access?(role_name, action_name, resource_name)
 		role = get_role(role_name)
-		has_action_to_resource?(role, action_name, resource_name)
+		if role
+			has_action_to_resource?(role, action_name, resource_name)
+		end
 	end
 end

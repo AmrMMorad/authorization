@@ -2,11 +2,14 @@ require 'sinatra/base'
 require 'sinatra/sequel'
 require 'yaml'
 require 'sequel/extensions/seed'
+require "sinatra/config_file"
 
 class App < Sinatra::Base
 	register Sinatra::SequelExtension
+	register Sinatra::ConfigFile
 
 	configure do
+		config_file "config.yml"
 		# set :database, database.yml
 		config = YAML::load_file("config/database.yml")["development"]
 		DB = Sequel.connect(config)

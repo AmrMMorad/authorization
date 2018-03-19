@@ -15,14 +15,15 @@ class AuthorizationController < Sinatra::Base
 		user = User.find(email: params[:email])
 	    if user && test_password(params[:password], user.password)
 			content_type :json
-			{ token: token(user.email) }.to_json
+			{ token: encode(user.email) }.to_json
 		else
 	    	halt 401
 		end
 	end
 
 	post '/authorize' do
-		user = User.find(email: params[:email])
+		user_email = decode(params[:token]).first["email"]
+		user = User.find(email: user_email)
 		if (user.can_access?(params[:role], params[:action], params[:resource]))
 			halt 200
 		else
