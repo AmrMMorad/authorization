@@ -1,13 +1,16 @@
 require 'sinatra/base'
-require './lib/sinatra/authorization_helper'
 require 'bcrypt'
 require 'json'
 require 'jwt'
+# require the helpers
+require './lib/sinatra/password_authorization_helper'
+require './lib/sinatra/jwt_authorization_helper'
 
 # password is hashed in the database. we cannot put it as plain text
 class AuthorizationController < Sinatra::Base
-	helpers Sinatra::AuthorizationHelper
-
+	helpers Sinatra::PasswordAuthorizationHelper
+	helpers Sinatra::JWTAuthorizationHelper
+	
 	post '/login' do
 		user = User.find(email: params[:email])
 	    if user && test_password(params[:password], user.password)
@@ -20,29 +23,11 @@ class AuthorizationController < Sinatra::Base
 
 	post '/authorize' do
 		user = User.find(email: params[:email])
-		puts user.can_access?(params[:role], params[:action], params[:resource])
-		# if(user.can_access?)
-		# 	puts "lllllllllllllllllll"
-		# if(user.has_role?(Role.find(name: params[:role])))
-			# print "dsdsssssssssssssssssssssssss"
-		# else
-		# 	halt 401
-		# end
-	end
-
-	def token email
-		JWT.encode payload(email), 'HS256'
-	end
-
-	def payload email
-		{
-			exp: Time.now.to_i + 60 * 60,
-			iat: Time.now.to_i,
-			scopes: ['authorize'],
-			user: {
-				email: email
-			}
-		}
+		if (user.can_access?(params[:role], params[:action], params[:resource]))
+			halt 200
+		else
+			halt 401
+		end
 	end
 
 end

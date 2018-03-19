@@ -2,7 +2,7 @@ require 'sinatra/base'
 require 'bcrypt'
 
 module Sinatra
-	module AuthorizationHelper
+	module PasswordAuthorizationHelper
 		def hash_password(password)
 			BCrypt::Password.create(password).to_s
 		end
@@ -12,6 +12,6 @@ module Sinatra
 		end
 	end
 	
-	helpers AuthorizationHelper
+	helpers PasswordAuthorizationHelper
 end
 
